@@ -1,0 +1,60 @@
+---
+- name: Test Text update
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  
+  tasks:
+    - name: get datacenter environment
+      set_fact:
+        datacenter: "{{ lookup('env', 'BENIS') }}"
+
+    - name: check datacenter  
+      debug: msg="Look at this datacenter {{ datacenter }}"
+
+    - name: testing yaml variable creation
+      include_vars:
+        file: test_book.yml
+        name: testyml
+    
+    - name: printing test variable
+      debug: 
+        var: testyml
+
+    - name: print the message
+      # with_dict: "testyml['entry']"
+      # debug: msg="hello {{ testyml['entry'] | from_yaml }}" <-- works
+      #debug: msg="hello {{ testyml['entry'] | map('extract', name) | SITE_SYSLOG_PROXY }}"
+      vars:
+#SITE_SYSLOG_PROXY: "{{ testyml | map('extract', entry) | map('extract', name) | map(attribute='name') }}"
+        SITE_SYSLOG_PROXY: "{{ testyml | map('extract', 'name') | first }}"
+
+        #SITE_SYSLOG_PROXY: "{{ testyml | map('select', name) }}"
+      debug: msg="site is {{ SITE_SYSLOG_PROXY }}"
+
+    - name: Get Rapid7.db stuff
+      include_vars:
+        file: ~/Scripts/sghv4/files/rapid-7-db.yml
+        name: rapid7db
+    
+    - name: set Rapid7 proxy
+      set_fact:
+        SITE_SYSLOG_PROXY: "{{ rapid7db }}.{{ datacenter }}.ip"
+
+    - name: Update Text Doc
+      blockinfile:
+        path: ~/Scripts/playtimes/test001
+        block: | 
+          inserting test test --
+          datacenter -  
+          {{ datacenter }}
+          Site Syslog - 
+          {{ SITE_SYSLOG_PROXY }}
+
+#pull environment variables
+#reference rapid 7 sheet
+#update template --> replace current syslog --> or the other way around
+
+
+
+...

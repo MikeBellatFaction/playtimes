@@ -1,0 +1,34 @@
+---
+- name: Test Text update
+  hosts: localhost
+  gather_facts: False
+  connection: local
+
+  vars:
+    place: sv10
+    rapid7db: ../sghv4/files/rapid-7-db.yml
+
+  tasks:
+    #seeding fake data for early tests
+    - name: lookup from rapid7 db
+      include_vars:
+        file: "{{ rapid7db }}"
+        name: rapid7
+
+    - name: setting test facts
+      debug: msg="If this step fails, add data center to files/rapid-7-db.yml"
+      set_fact:
+        place: sv10
+      set_fact:
+        datacenter: lookup('env', DATACENTER)
+      set_fact:  
+        SYSLOG_PROXY: "{{rapid7['rapid_7_db'][lookup('vars', 'place')]['ip']}}"
+
+    - name: debug SYSLOG_PROXY
+      debug: msg="SYSLOG_PROXY={{ SYSLOG_PROXY }}"
+
+#copy template to location
+    - name: copy template to work location
+      ansible.builtin.template:
+        src: ../sghv4/templates/rsyslog.conf.j2
+        dest: syslog_test

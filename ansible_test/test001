@@ -1,0 +1,7 @@
+# BEGIN ANSIBLE MANAGED BLOCK
+inserting test test --
+datacenter -  
+benis
+Site Syslog - 
+{u'rapid_7_db': {u'sv10': {u'ip': u'10.8.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'dc15': {u'ip': u'10.11.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'den3': {u'ip': u'10.3.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'chi1': {u'ip': u'10.5.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'atl1': {u'ip': u'10.9.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'scl2': {u'ip': u'10.8.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'nj1': {u'ip': u'10.6.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'fr7': {u'ip': u'10.114.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'uk1': {u'ip': u'10.112.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'pdx1': {u'ip': u'10.10.12.10', u'ports': {u'main': 1043, u'another': 1045}}, u'dc1': {u'ip': u'10.11.12.10', u'ports': {u'main': 1043, u'another': 1045}}}}.benis.ip
+# END ANSIBLE MANAGED BLOCK
